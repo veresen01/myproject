@@ -1,0 +1,51 @@
+{% extends 'blog_app/base.html' %}
+{% block title %} {{title}} {% endblock %}
+{% block content %}
+<h1>{{ title}}</h1>
+<br>
+{% if not request.user.is_authenticated %}
+    <p>Для просмотра ваших опубликованных рецептов, необходимо авторизоваться</p>
+{% endif %}
+{% if not recipes %}
+    <p>У вас нет опубликованных рецептов</p>
+{% endif %}
+
+<ul class="list-articles">
+    {% for recipe in page_obj %}
+    <li>
+        <div class="article-panel">
+            <p class="first">Категория: {{recipe.category_id}}</p>
+            <p class="last">Дата: {{recipe.change_at|date:"d-m-Y H:i:s"}}</p>
+        </div>
+
+        {% if recipe.image %}
+        <p><img class="img-article-left thumb" src="{{recipe.image.url}}"></p>
+        {% endif %}
+
+        <h2>{{recipe.title}}</h2>
+        {% autoescape on %}
+        {{recipe.description|linebreaks|truncatewords:50}}
+
+        {% if recipe.is_published == 1 %}
+
+            <h3> <strong><span style="color: #ff6600;">Опубликовано</span></strong></h3>
+
+        <button type="button"><a href="{% url 'recipe_publication' recipe.id 1 %}">снять с публикации</a></button>
+
+        {% else %}
+            <h3> <strong><span style="color: #ff6600;">Не опубликовано</span></strong></h3>
+       <button type="button"><a href="{% url 'recipe_publication' recipe.id 0 %}">опубликовать</a></button>
+        {% endif %}
+
+
+        {% endautoescape %}
+        <div class="clear"></div>
+
+        <p class="link-read-post"><a href="{{ recipe.get_absolute_url }}">Подробно о рецепте</a></p>
+    </li>
+    {% endfor %}
+</ul>
+
+
+
+{% endblock %}

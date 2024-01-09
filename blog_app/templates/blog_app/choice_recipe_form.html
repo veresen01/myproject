@@ -1,0 +1,13 @@
+{% extends 'blog_app/base.html' %}
+{% block title %} выбор продукта по id {% endblock %}
+
+
+{% block content %}
+<h1>введите id рецепта: </h1>
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">выбрать</button>
+</form>
+{% endblock %}

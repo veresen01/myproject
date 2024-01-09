@@ -1,0 +1,28 @@
+{% extends 'blog_app/base.html' %}
+{% block title %} Продукт {% endblock %}
+
+
+{% block content %}
+
+<h1>список рецептов</h1> <br>
+<ul>
+    {% for recipe in recipes %}
+    <li>
+        <h2>{{ recipe.title }} </h2>
+        <p> автор {{ recipe.author_id.name }}</p>
+        {% if recipe.image %}
+        <img src="{{ MEDIA_URL }}{{ recipe.image.url }}">
+        {% endif %}
+        <hr>
+    </li>
+
+    {% endfor %}
+</ul>
+
+{% for category in categories %}
+<p>категория: {{ category.recipe_id }}</p>
+
+{%  endfor %}
+{% endblock %}
+
+

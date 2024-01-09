@@ -1,0 +1,22 @@
+{% extends 'blog_app/base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+{% if comments %}
+<h3>Kомментарий к рецепту: {{ recipe.title }}, <br>автор: {{ recipe.author }}</h3>
+<hr>
+
+{% for comment in comments%}
+<p>{{ comment.description }}</p>{{ comment.description }}
+<p>Рецепт оценен: {{ comment.estimation }}</p>
+<p>комментарий написал: {{ comment.user_name }}</p>
+<p>логин: {{ comment.user_login }}</p>
+<hr>
+{% endfor %}
+{% else %}
+<p> пока нет комментариев </p>
+{% endif %}
+
+
+{% endblock %}
