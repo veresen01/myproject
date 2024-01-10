@@ -1,0 +1,21 @@
+{% extends 'blog_app/base.html' %}
+
+{% block title %} Title {% endblock %}
+
+{% block content %}
+{% if recipe %}
+<h1>Рецепт {{ recipe.title }}, автор: {{ recipe.author }}</h1>
+<p> время приготовления: {{ recipe.time_cook }}мин </p>
+<p> {{ recipe.description }} </p>
+<p> инградиенты:<br> {{ recipe.ingredients }} </p>
+<p> шаги:<br> {{ recipe.steps_cook }} </p>
+<p> кол просмотров:<br> {{ recipe.views }} </p>
+<p> время создания рецепта: {{ recipe.create_at }} </p>
+<p> время изменения рецепта: {{ recipe.change_at }} </p>
+<div> {{ recipe.image }}</div>
+{% else %}
+<p> нет такого рецепта </p>
+{% endif %}
+
+
+{% endblock %}

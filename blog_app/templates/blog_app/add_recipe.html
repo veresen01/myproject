@@ -1,0 +1,26 @@
+{% extends 'blog_app/base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+
+{% if request.user.is_authenticated %}
+
+<form action="{% url 'add_recipe' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-error">{{ form.non_field_errors }}</div>
+
+
+    {% for f in form %}
+    <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+    <div class="form-error">{{ f.errors }}</div>
+    {% endfor %}
+
+    <button type="submit">Добавить</button>
+</form>
+
+{% else %}
+<p>Для добавления рецепта необходимо зарегистрироваться или авторизоваться</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'blog_app/base.html' %}
+{% block title %} {{ title }} {% endblock %}
+{% block content %}
+<h1>{{ title }}</h1>
+<h2>Рецепт: {{ recipe.title}} {{ massage }}</h2>
+<hr>
+<h3>Cписок всех ваших рецептов:</h3>
+{% for recipe in recipes %}
+<p>
+    <a href="{% url 'recipe' recipe.id %}"> Рецепт: {{ recipe.title }} от {{ recipe.change_at }}</a>
+</p>
+{% endfor %}
+
+{% endblock %}

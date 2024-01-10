@@ -1,0 +1,29 @@
+{% extends 'blog_app/base.html' %}
+
+{% block content %}
+<h1>Все опубликованные рецепты по категориям</h1>
+
+<ul class="list-articles">
+    {% for recipe in page_obj %}
+    <li>
+        <div class="article-panel">
+            <p class="first">Категория: {{recipe.category_id}}</p>
+            <p class="last">Дата: {{recipe.change_at|date:"d-m-Y H:i:s"}}</p>
+        </div>
+
+        {% if recipe.image %}
+        <p><img class="img-article-left thumb" src="{{recipe.image.url}}"></p>
+        {% endif %}
+
+        <h2>{{recipe.title}}</h2>
+        {% autoescape on %}
+        {{recipe.description|linebreaks|truncatewords:50}}
+        {% endautoescape %}
+        <div class="clear"></div>
+
+        <p class="link-read-post"><a href="{{ recipe.get_absolute_url }}">Подробно о рецепте</a></p>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

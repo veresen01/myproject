@@ -1,0 +1,33 @@
+{% extends 'blog_app/base.html' %}
+
+{% block content %}
+<h1>{{recipe.title}}</h1>
+
+{% if recipe.image %}
+<p><img class="img-article-left" src="{{recipe.image.url}}"></p>
+{% endif %}
+<p>{{recipe.description|linebreaks}}</p>
+<h3>инградиенты:</h3>
+<p>{{recipe.ingredients|linebreaks}}</p>
+<h3>шаги:</h3>
+<p>{{recipe.steps_cook|linebreaks}}</p>
+<p><strong>время приготовления:</strong> {{recipe.time_cook }}мин </p>
+<p><strong>калорийность:</strong> {{recipe.calories }}Ккал</p>
+<p><strong>количество просмотров:</strong> {{recipe.views }}</p>
+<p><strong>средняя оценка из 5 баллов:</strong> {{ recipe.estimation_average}}</p>
+<p><strong>автор рецепта: </strong>{{recipe.author }} (логин: {{recipe.user_login}})</p>
+{% if recipe.is_published == True %}
+<p>опубликовано</p>
+{% else %}
+<p>не опубликовано</p>
+{% endif %}
+<p><strong>id : {{recipe.id}}</strong></p>
+
+
+<div class="button-row">
+    <a href="{% url 'show_comments_recipe' recipe.id %}" class="button19">комментарии</a>
+    <a href="{% url 'add_comment' recipe.id %}" class="button19">добавить комментарий</a>
+    <a href="{% url 'change_recipe' recipe.id %}" class="button19">редактировать рецепт</a>
+    <a href="{% url 'delete_recipe' recipe.id %}" class="button19">удалить рецепт</a>
+</div>
+{% endblock %}
